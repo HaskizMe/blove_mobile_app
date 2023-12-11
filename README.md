@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # blove
 
 bLove Bear
@@ -14,3 +15,7 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# blove_mobile_app
+mobile flutter app for bLOVE
+>>>>>>> ca51f48e28fd121f271a506da9e8916f1c5e7c2a
