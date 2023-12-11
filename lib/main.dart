@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(DevicePreview(
-    enabled: false,
+    enabled: true,
     builder: (context) => const MyApp(),
   ));
   //test
