@@ -1,9 +1,11 @@
-import 'package:blove/custom_widgets/custom_button.dart';
-import 'package:blove/custom_widgets/custom_text_field.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../colors/app_colors.dart';
+import '../custom_widgets/custom_button.dart';
+import '../global_variables/screen_size_values.dart';
+import 'create_account_page.dart';
+import 'login_screen.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -13,16 +15,13 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  final String assetName = 'assets/bLOVEbEARLogoWTypeEdit.svg';
+  // final Completer<bool> _modalClosedCompleter = Completer<bool>();
+  final String bLoveBearLogo = 'assets/bLOVEbEARLogoWTypeEdit.svg';
   bool isCreatingAccount = false;
   bool isLoggingIn = false;
-  final TextEditingController emailTextController = TextEditingController();
-  final TextEditingController passwordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     double height = 40;
 
     // Function to handle logging in
@@ -33,26 +32,35 @@ class _WelcomePageState extends State<WelcomePage> {
     }
 
     // Function to handle creating an account
-    handleCreateAccount() {
+    handleCreateAccount() async {
+      Completer<bool> modalClosedCompleter = Completer<bool>();
       // Shows screen pop up to make account
-      showModalBottomSheet(
-          backgroundColor: Colors.transparent,
-          context: context,
-          isScrollControlled: true,
-          isDismissible: true,
-          builder: (BuildContext context) {
-            return DraggableScrollableSheet(
-                initialChildSize: 0.95,
-                maxChildSize: 0.95,
-                minChildSize: 0.95,
-                expand: true,
-                builder: (context, scrollController) {
-                  return const MyModalSheet();
-                }
-            );
-          }
-      );
+      await showModalBottomSheet(
+        constraints: BoxConstraints(
+          maxWidth: ScreenSize.screenWidth
+        ),
+        backgroundColor: Colors.transparent,
+        context: context,
+        isScrollControlled: true,
+        isDismissible: true,
+        builder: (BuildContext context) {
+          return DraggableScrollableSheet(
+            initialChildSize: 0.95,
+            expand: true,
+            builder: (context, scrollController) {
+              return const CreateAccount();
+            },
+          );
+        },
+      ).whenComplete(() {
+        // The modal sheet is closed
+        print('Closing modal sheet...');
+        if (!modalClosedCompleter.isCompleted) {
+          modalClosedCompleter.complete(true);
+        }
+      });
     }
+
 
     handleSubmitLogin() {
 
@@ -74,80 +82,17 @@ class _WelcomePageState extends State<WelcomePage> {
             const SizedBox(height: 20,),
             // bLOVE image
             SvgPicture.asset(
-              'assets/bLOVEbEARLogoWTypeEdit.svg',
-              width: screenWidth * .6, // Size of image based on screen width
-              height: screenWidth * .6, // Size of image based on screen width
+              bLoveBearLogo,
+              width: ScreenSize.screenWidth * .6, // Size of image based on screen width
+              height: ScreenSize.screenWidth * .6, // Size of image based on screen width
             ),
             const SizedBox(height: 60,),
+
+            // Switches between login and create account views
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 150),
               child: isLoggingIn
-                  ? Column(
-                key: ValueKey<bool>(isLoggingIn),
-                children: [
-                  // Your login widgets
-                  CustomTextField(
-                    width: screenWidth * .8,
-                    textController: emailTextController,
-                    height: height,
-                    hintText: "EMAIL ADDRESS",
-                    isObscure: false,
-                  ),
-                  const SizedBox(height: 10,),
-                  CustomTextField(
-                    width: screenWidth * .8,
-                    textController: passwordTextController,
-                    height: height,
-                    hintText: "PASSWORD",
-                    isObscure: true,
-                  ),
-                  const SizedBox(height: 10,),
-                  CustomButton(
-                    width: screenWidth * .8,
-                    handleButton: handleLogIn,
-                    buttonColor: AppColors.bearSkinTan,
-                    textColor: Colors.black,
-                    height: 40,
-                    borderRadius: 15.0,
-                    buttonName: 'CANCEL',
-                  ),
-                  const SizedBox(height: 10,),
-                  CustomButton(
-                    width: screenWidth * .8,
-                    handleButton: handleSubmitLogin,
-                    buttonColor: Colors.red,
-                    textColor: Colors.white,
-                    height: 40,
-                    borderRadius: 15.0,
-                    buttonName: 'SUBMIT',
-                  ),
-                ],
-              )
-                  : Column(
-                key: ValueKey<bool>(isLoggingIn),
-                children: [
-                  // Your non-login widgets
-                  CustomButton(
-                    width: screenWidth * .8,
-                    handleButton: handleLogIn,
-                    buttonColor: AppColors.bearSkinTan,
-                    textColor: Colors.black,
-                    height: height,
-                    borderRadius: 15.0,
-                    buttonName: 'LOG IN',
-                  ),
-                  const SizedBox(height: 10,),
-                  CustomButton(
-                    width: screenWidth * .8,
-                    handleButton: handleCreateAccount,
-                    buttonColor: Colors.red,
-                    textColor: Colors.white,
-                    height: height,
-                    borderRadius: 15.0,
-                    buttonName: 'CREATE ACCOUNT',
-                  ),
-                ],
-              ),
+                  ? LoginViewPage(updateLogin: handleLogIn,) : WelcomeView(updateLogin: handleLogIn, updateCreateAccount: handleCreateAccount,)
             )
           ],
         ),
@@ -156,41 +101,40 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 }
 
-class MyModalSheet extends StatelessWidget {
-  const MyModalSheet({super.key});
+class WelcomeView extends StatelessWidget {
+  final Function updateLogin;
+  final Function updateCreateAccount;
+  const WelcomeView({super.key, required this.updateLogin, required this.updateCreateAccount});
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
+    double height = 40;
 
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: ClipRRect(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(30.0)),
-        child: Container(
-          height: screenHeight,
-          width: double.infinity,
-          child: Material(
-            color: Colors.white,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text('Modal Sheet Content'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context); // Close the modal sheet
-                  },
-                  child: const Text('Close'),
-                ),
-              ],
-            ),
-          ),
+    return Column(
+      children: [
+        // Your non-login widgets
+        CustomButton(
+          width: ScreenSize.screenWidth * .8,
+          handleButton: updateLogin,
+          buttonColor: AppColors.bearSkinTan,
+          textColor: Colors.black,
+          height: height,
+          borderRadius: 15.0,
+          buttonName: 'LOG IN',
         ),
-      ),
+        const SizedBox(height: 10,),
+        CustomButton(
+          width: ScreenSize.screenWidth * .8,
+          handleButton: updateCreateAccount,
+          buttonColor: Colors.red,
+          textColor: Colors.white,
+          height: height,
+          borderRadius: 15.0,
+          buttonName: 'CREATE ACCOUNT',
+        ),
+      ],
     );
   }
 }
+
 

@@ -1,4 +1,4 @@
-name: blove
+name: b_love_bear
 description: "bLove Bear"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -30,13 +30,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.9
   device_preview: ^1.1.0
+  flutter_screenutil: ^5.9.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/AppIcon.appiconset/bLoveIcon180.png"
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +69,26 @@ flutter:
   assets:
    - assets/4HeartClusterEdit.svg
    - assets/bLOVEbEARLogoWTypeEdit.svg
+   - assets/bLOVEAppIconLogo.png
+   - assets/bLOVEbEARBehindBig.svg
+   - assets/bLOVEbEARBehindSmall.svg
+   - assets/bLOVEbEARFrontBig.svg
+   - assets/bLOVEbEARFrontSmall.svg
+   - assets/bLOVEbEARWithGlowingHeartBig.svg
+   - assets/bLOVEbEARWithGlowingHeartSmall.svg
+   - assets/bluetooth.svg
+   - assets/HeartButtonNoTextBig.svg
+   - assets/HeartButtonNoTextSmall.svg
+   - assets/HeartConnectButtonBig.svg
+   - assets/HeartConnectButtonSmall.svg
+   - assets/HeartNextButtonSmall.svg
+   - assets/HeartPinkButtonNoTextBig.svg
+   - assets/HeartSendButtonBig.svg
+   - assets/HeartSubmitButtonBig.svg
+   - assets/HeartSubmitButtonSmall.svg
+   - assets/RecordButtonBig.svg
+   - assets/RecordButtonSmall.svg
+   - assets/StopButtonSmall.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
