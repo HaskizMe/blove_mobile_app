@@ -1,9 +1,7 @@
-import 'package:blove/screens/welcome_page.dart';
+import 'package:b_love_bear/screens/welcome_page.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'colors/app_colors.dart';
-
+import 'global_variables/screen_size_values.dart';
 
 
 
@@ -29,7 +27,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    ScreenSize.initialize(context);
+    return
+    //   ScreenUtilInit(
+    //   designSize: Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
+    //   builder: (context, child) => const MaterialApp(
+    //     title: 'bLOVE',
+    //     home: WelcomePage(),
+    //   ),
+    // );
+      const MaterialApp(
       title: 'bLOVE',
       home: WelcomePage(),
     );
