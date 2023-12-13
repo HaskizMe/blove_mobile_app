@@ -47,7 +47,7 @@ class _LoginViewPageState extends State<LoginViewPage> {
         CustomButton(
           width: ScreenSize.screenWidth * .8,
           handleButton: widget.updateLogin,
-          buttonColor: AppColors.bearSkinTan,
+          buttonColor: AppColors.bLOVEBackground,
           textColor: Colors.black,
           height: 40,
           borderRadius: 15.0,

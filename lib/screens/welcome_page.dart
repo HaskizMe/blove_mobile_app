@@ -67,7 +67,7 @@ class _WelcomePageState extends State<WelcomePage> {
     }
     return Scaffold(
       /////// FIX COLOR
-      backgroundColor: AppColors.bearSkinTan,
+      backgroundColor: AppColors.bLOVEBackground,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -77,8 +77,6 @@ class _WelcomePageState extends State<WelcomePage> {
               'Welcome To',
               style: TextStyle(
                 fontSize: 30,
-                fontFamily: 'roboto-light',
-                fontWeight: FontWeight.w500
               ),
             ),
             const SizedBox(height: 20,),
@@ -118,7 +116,7 @@ class WelcomeView extends StatelessWidget {
         CustomButton(
           width: ScreenSize.screenWidth * .8,
           handleButton: updateLogin,
-          buttonColor: AppColors.bearSkinTan,
+          buttonColor: AppColors.bLOVEBackground,
           textColor: Colors.black,
           height: height,
           borderRadius: 15.0,
