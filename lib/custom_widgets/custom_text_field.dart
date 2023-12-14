@@ -21,10 +21,13 @@ class CustomTextField extends StatelessWidget {
       width: width,
       height: height,
       child: TextField(
+        textAlign: TextAlign.center,
         cursorColor: Colors.grey,
         controller: textController,
         obscureText: isObscure,
         decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
           contentPadding: EdgeInsets.symmetric(vertical: height / 2 - 16, horizontal: 10),
           focusColor: Colors.black,
           focusedBorder: OutlineInputBorder(
@@ -40,6 +43,7 @@ class CustomTextField extends StatelessWidget {
               )
           ),
           hintText: hintText,
+          hintStyle: const TextStyle(color: Colors.black),
         ),
       ),
     );
