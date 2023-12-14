@@ -107,13 +107,10 @@ class _BlinkingBearState extends State<BlinkingBear> {
             fontSize: 30,
           ),
         ),
-        const SizedBox(height: 20,),
-        SvgPicture.asset(
-          widget.currentBear,
-          width: ScreenSize.screenWidth * .6, // Size of image based on screen width
-          height: ScreenSize.screenWidth * .6, // Size of image based on screen width
-        ),
-        const SizedBox(height: 20,),
+        const SizedBox(height: 40,),
+        // Size of image
+        SvgPicture.asset(widget.currentBear, height: ScreenSize.screenHeight * .35, width: ScreenSize.screenWidth * .6,),
+        const SizedBox(height: 40,),
         const Text(
           "THE TEDDY BEAR",
           style: TextStyle(
@@ -154,10 +151,10 @@ class _AccountCreationState extends State<AccountCreation> {
     return Scaffold(
       backgroundColor: AppColors.bLOVEBackground,
       appBar: AppBar(
-        leadingWidth: 120,
-        leading: ElevatedButton(
+        leadingWidth: 100,
+        leading: TextButton(
           onPressed: widget.onBackArrowTapped,
-          child: Row(
+          child: const Row(
             children: [
               Icon(Icons.arrow_back_ios_new, color: Colors.red),
               SizedBox(width: 2.0),
@@ -170,33 +167,15 @@ class _AccountCreationState extends State<AccountCreation> {
               ),
             ],
           ),
-
         ),
-        // GestureDetector(
-        //   onTap: widget.onBackArrowTapped,
-        //   child: const Padding(
-        //     padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
-        //     child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         crossAxisAlignment: CrossAxisAlignment.center,
-        //         children: [
-        //           Icon(Icons.arrow_back_ios_new, color: Colors.red,),
-        //           Text(
-        //             'Back', style: TextStyle(
-        //             fontSize: 18,
-        //             color: Colors.red
-        //           ),
-        //           ),
-        //     ]
-        //     ),
-        //   ), // You can use any widget here
-        // ),
         backgroundColor: AppColors.bLOVEBackground,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset("assets/bLOVEbEARFrontBig.svg"),
+          SvgPicture.asset("assets/bLOVEbEARFrontBig.svg", width: ScreenSize.screenWidth *.8, height: ScreenSize.screenHeight *.8,),
+
         ],
       ),
     );
