@@ -1,12 +1,10 @@
 import 'dart:async';
-
-import 'package:b_love_bear/screens/welcome_page.dart';
+import 'package:b_love_bear/custom_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../colors/app_colors.dart';
-import '../custom_widgets/custom_button.dart';
 import '../global_variables/screen_size_values.dart';
+import '../helper_files/accout_creation_helper.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -62,14 +60,17 @@ class _CreateAccountState extends State<CreateAccount> {
             },
             child: Material(
               color: AppColors.bLOVEBackground,
-              child: showAccountCreationLayout
-                  ? AccountCreation(onBackArrowTapped: () {
-                    setState(() {
-                      showAccountCreationLayout = false;
-                    });
-                    },
-              ) // Show a different layout
-                  : BlinkingBear(currentBear: currentBearImage),
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 1000),
+                child: showAccountCreationLayout
+                    ? AccountCreation(onBackArrowTapped: () {
+                      setState(() {
+                        showAccountCreationLayout = false;
+                      });
+                      },
+                ) // Show a different layout
+                    : BlinkingBear(currentBear: currentBearImage),
+              ),
             ),
           ),
         ),
@@ -146,6 +147,12 @@ class AccountCreation extends StatefulWidget {
 }
 
 class _AccountCreationState extends State<AccountCreation> {
+  final TextEditingController emailTextController = TextEditingController();
+  final TextEditingController nickNameTextController = TextEditingController();
+  final TextEditingController confirmPasswordTextController = TextEditingController();
+  final TextEditingController passwordTextController = TextEditingController();
+  double height = 40;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,13 +163,13 @@ class _AccountCreationState extends State<AccountCreation> {
           onPressed: widget.onBackArrowTapped,
           child: const Row(
             children: [
-              Icon(Icons.arrow_back_ios_new, color: Colors.red),
+              Icon(Icons.arrow_back_ios_new, color: AppColors.heartRed),
               SizedBox(width: 2.0),
               Text(
                 'Back',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.red,
+                  color: AppColors.heartRed,
                 ),
               ),
             ],
@@ -170,13 +177,65 @@ class _AccountCreationState extends State<AccountCreation> {
         ),
         backgroundColor: AppColors.bLOVEBackground,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SvgPicture.asset("assets/bLOVEbEARFrontBig.svg", width: ScreenSize.screenWidth *.8, height: ScreenSize.screenHeight *.8,),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset("assets/bLOVEbEARFrontBig.svg", width: ScreenSize.screenWidth *.3, height: ScreenSize.screenHeight *.3,),
+            const SizedBox(height: 40,),
 
-        ],
+            CustomTextField(
+                width: 300,
+                textController: emailTextController,
+                height: height,
+                hintText: 'EMAIL ADDRESS',
+                isObscure: false
+            ),
+            const SizedBox(height: 10,),
+            CustomTextField(
+                width: 300,
+                textController: nickNameTextController,
+                height: height,
+                hintText: 'NICKNAME',
+                isObscure: false
+            ),
+            const SizedBox(height: 10,),
+            CustomTextField(
+                width: 300,
+                textController: passwordTextController,
+                height: height,
+                hintText: 'PASSWORD',
+                isObscure: true
+            ),
+            const SizedBox(height: 10,),
+            CustomTextField(
+                width: 300,
+                textController: confirmPasswordTextController,
+                height: height,
+                hintText: 'CONFIRM PASSWORD',
+                isObscure: true
+            ),
+            const SizedBox(height: 30,),
+            InkWell(
+              onTap: () {
+                print("Button tapped!");
+                handleSubmitButton(
+                  context,
+                  emailTextController,
+                  nickNameTextController,
+                  passwordTextController,
+                  confirmPasswordTextController,
+                );
+              },
+              hoverColor: Colors.transparent,
+              child: SvgPicture.asset(
+                'assets/HeartSubmitButtonBig.svg',
+                width: 150,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

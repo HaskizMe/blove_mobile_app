@@ -30,6 +30,33 @@ class _WelcomePageState extends State<WelcomePage> {
         isLoggingIn = !isLoggingIn;
       });
     }
+    void showLoading(BuildContext context) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Container(
+                color: AppColors.heartRed.withOpacity(.6),
+                width: 150,
+                height: 150,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    Text('Attempting login')
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    }
+
 
     // Function to handle creating an account
     handleCreateAccount() async {
@@ -60,13 +87,7 @@ class _WelcomePageState extends State<WelcomePage> {
         }
       });
     }
-
-
-    handleSubmitLogin() {
-
-    }
     return Scaffold(
-      /////// FIX COLOR
       backgroundColor: AppColors.bLOVEBackground,
       body: Center(
         child: Column(
@@ -90,9 +111,10 @@ class _WelcomePageState extends State<WelcomePage> {
 
             // Switches between login and create account views
             AnimatedSwitcher(
-              duration: const Duration(milliseconds: 150),
-              child: isLoggingIn
-                  ? LoginViewPage(updateLogin: handleLogIn,) : WelcomeView(updateLogin: handleLogIn, updateCreateAccount: handleCreateAccount,)
+                duration: const Duration(milliseconds: 150),
+                child: isLoggingIn
+                    ? LoginViewPage(updateLogin: handleLogIn, showLoading: showLoading,)
+                    : WelcomeView(updateLogin: handleLogIn, updateCreateAccount: handleCreateAccount,)
             )
           ],
         ),
@@ -126,7 +148,7 @@ class WelcomeView extends StatelessWidget {
         CustomButton(
           width: ScreenSize.screenWidth * .8,
           handleButton: updateCreateAccount,
-          buttonColor: Colors.red,
+          buttonColor: AppColors.heartRed,
           textColor: Colors.white,
           height: height,
           borderRadius: 15.0,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../colors/app_colors.dart';
 import '../custom_widgets/custom_button.dart';
@@ -7,7 +8,8 @@ import '../global_variables/screen_size_values.dart';
 
 class LoginViewPage extends StatefulWidget {
   final Function updateLogin;
-  const LoginViewPage({super.key, required this.updateLogin});
+  final Function(BuildContext) showLoading;
+  const LoginViewPage({super.key, required this.updateLogin, required this.showLoading});
 
   @override
   State<LoginViewPage> createState() => _LoginViewPageState();
@@ -16,16 +18,23 @@ class LoginViewPage extends StatefulWidget {
 class _LoginViewPageState extends State<LoginViewPage> {
   final TextEditingController emailTextController = TextEditingController();
   final TextEditingController passwordTextController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     double height = 40;
-
     handleSubmitLogin() {
+      // Show loading circle
+      widget.showLoading(context);
 
+      // Simulate a delay (e.g., for a network request)
+      Future.delayed(Duration(seconds: 2), () {
+        // Hide loading circle
+        Navigator.of(context).pop(); // Close the loading overlay
+
+        // Handle login logic
+        print("submit button clicked");
+      });
     }
     return Column(
-      //key: ValueKey<bool>(isLoggingIn),
       children: [
         // Your login widgets
         CustomTextField(
@@ -57,7 +66,7 @@ class _LoginViewPageState extends State<LoginViewPage> {
         CustomButton(
           width: ScreenSize.screenWidth * .8,
           handleButton: handleSubmitLogin,
-          buttonColor: Colors.red,
+          buttonColor: AppColors.heartRed,
           textColor: Colors.white,
           height: 40,
           borderRadius: 15.0,
