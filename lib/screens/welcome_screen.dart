@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../colors/app_colors.dart';
 import '../custom_widgets/custom_button.dart';
 import '../global_variables/screen_size_values.dart';
-import 'create_account_page.dart';
+import 'create_account_screen.dart';
 import 'login_screen.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -42,12 +42,14 @@ class _WelcomePageState extends State<WelcomePage> {
                 color: AppColors.heartRed.withOpacity(.6),
                 width: 150,
                 height: 150,
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CircularProgressIndicator(),
-                    Text('Attempting login')
+                    CircularProgressIndicator(color: Colors.white,),
+                    SizedBox(height: 15,),
+                    Text('ATTEMPTING', style: TextStyle(color: Colors.white),),
+                    Text('LOGIN', style: TextStyle(color: Colors.white),),
                   ],
                 ),
               ),
