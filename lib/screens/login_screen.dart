@@ -1,3 +1,4 @@
+import 'package:b_love_bear/screens/record_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -21,17 +22,19 @@ class _LoginViewPageState extends State<LoginViewPage> {
   @override
   Widget build(BuildContext context) {
     double height = 40;
+    
     handleSubmitLogin() {
       // Show loading circle
       widget.showLoading(context);
 
       // Simulate a delay (e.g., for a network request)
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(milliseconds: 200), () {
         // Hide loading circle
         Navigator.of(context).pop(); // Close the loading overlay
-
-        // Handle login logic
-        print("submit button clicked");
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const RecordPage()),
+        );        print("submit button clicked");
       });
     }
     return Column(
