@@ -90,35 +90,38 @@ class _WelcomePageState extends State<WelcomePage> {
       });
     }
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.bLOVEBackground,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              'Welcome To',
-              style: TextStyle(
-                fontSize: 30,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Welcome To',
+                style: TextStyle(
+                  fontSize: 30,
+                ),
               ),
-            ),
-            const SizedBox(height: 20,),
-            // bLOVE image
-            SvgPicture.asset(
-              bLoveBearLogo,
-              width: ScreenSize.screenWidth * .6, // Size of image based on screen width
-              height: ScreenSize.screenWidth * .6, // Size of image based on screen width
-            ),
-            const SizedBox(height: 60,),
+              const SizedBox(height: 20,),
+              // bLOVE image
+              SvgPicture.asset(
+                bLoveBearLogo,
+                width: ScreenSize.screenWidth * .6, // Size of image based on screen width
+                height: ScreenSize.screenWidth * .6, // Size of image based on screen width
+              ),
+              const SizedBox(height: 60,),
 
-            // Switches between login and create account views
-            AnimatedSwitcher(
-                duration: const Duration(milliseconds: 150),
-                child: isLoggingIn
-                    ? LoginViewPage(updateLogin: handleLogIn, showLoading: showLoading,)
-                    : WelcomeView(updateLogin: handleLogIn, updateCreateAccount: handleCreateAccount,)
-            )
-          ],
+              // Switches between login and create account views
+              AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 150),
+                  child: isLoggingIn
+                      ? LoginViewPage(updateLogin: handleLogIn, showLoading: showLoading,)
+                      : WelcomeView(updateLogin: handleLogIn, updateCreateAccount: handleCreateAccount,)
+              )
+            ],
+          ),
         ),
       ),
     );

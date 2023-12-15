@@ -156,6 +156,7 @@ class _AccountCreationState extends State<AccountCreation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.bLOVEBackground,
       appBar: AppBar(
         leadingWidth: 100,
@@ -178,63 +179,65 @@ class _AccountCreationState extends State<AccountCreation> {
         backgroundColor: AppColors.bLOVEBackground,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SvgPicture.asset("assets/bLOVEbEARFrontBig.svg", width: ScreenSize.screenWidth *.3, height: ScreenSize.screenHeight *.3,),
-            const SizedBox(height: 40,),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset("assets/bLOVEbEARFrontBig.svg", width: ScreenSize.screenWidth *.3, height: ScreenSize.screenHeight *.3,),
+              const SizedBox(height: 40,),
 
-            CustomTextField(
-                width: 300,
-                textController: emailTextController,
-                height: height,
-                hintText: 'EMAIL ADDRESS',
-                isObscure: false
-            ),
-            const SizedBox(height: 10,),
-            CustomTextField(
-                width: 300,
-                textController: nickNameTextController,
-                height: height,
-                hintText: 'NICKNAME',
-                isObscure: false
-            ),
-            const SizedBox(height: 10,),
-            CustomTextField(
-                width: 300,
-                textController: passwordTextController,
-                height: height,
-                hintText: 'PASSWORD',
-                isObscure: true
-            ),
-            const SizedBox(height: 10,),
-            CustomTextField(
-                width: 300,
-                textController: confirmPasswordTextController,
-                height: height,
-                hintText: 'CONFIRM PASSWORD',
-                isObscure: true
-            ),
-            const SizedBox(height: 30,),
-            InkWell(
-              onTap: () {
-                print("Button tapped!");
-                handleSubmitButton(
-                  context,
-                  emailTextController,
-                  nickNameTextController,
-                  passwordTextController,
-                  confirmPasswordTextController,
-                );
-              },
-              hoverColor: Colors.transparent,
-              child: SvgPicture.asset(
-                'assets/HeartSubmitButtonBig.svg',
-                width: 150,
+              CustomTextField(
+                  width: 300,
+                  textController: emailTextController,
+                  height: height,
+                  hintText: 'EMAIL ADDRESS',
+                  isObscure: false
               ),
-            ),
-          ],
+              const SizedBox(height: 10,),
+              CustomTextField(
+                  width: 300,
+                  textController: nickNameTextController,
+                  height: height,
+                  hintText: 'NICKNAME',
+                  isObscure: false
+              ),
+              const SizedBox(height: 10,),
+              CustomTextField(
+                  width: 300,
+                  textController: passwordTextController,
+                  height: height,
+                  hintText: 'PASSWORD',
+                  isObscure: true
+              ),
+              const SizedBox(height: 10,),
+              CustomTextField(
+                  width: 300,
+                  textController: confirmPasswordTextController,
+                  height: height,
+                  hintText: 'CONFIRM PASSWORD',
+                  isObscure: true
+              ),
+              const SizedBox(height: 30,),
+              InkWell(
+                onTap: () {
+                  print("Button tapped!");
+                  handleSubmitButton(
+                    context,
+                    emailTextController,
+                    nickNameTextController,
+                    passwordTextController,
+                    confirmPasswordTextController,
+                  );
+                },
+                hoverColor: Colors.transparent,
+                child: SvgPicture.asset(
+                  'assets/HeartSubmitButtonBig.svg',
+                  width: 150,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

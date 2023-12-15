@@ -75,6 +75,7 @@ class _LoginViewPageState extends State<LoginViewPage> {
           borderRadius: 15.0,
           buttonName: 'SUBMIT',
         ),
+        const SizedBox(height: 10,),
       ],
     );
   }
