@@ -6,11 +6,13 @@ import '../colors/app_colors.dart';
 import '../custom_widgets/custom_button.dart';
 import '../custom_widgets/custom_text_field.dart';
 import '../global_variables/screen_size_values.dart';
+import '../helper_files/accout_creation_helper.dart';
+import '../helper_files/login_helper.dart';
 
 class LoginViewPage extends StatefulWidget {
   final Function updateLogin;
-  final Function(BuildContext) showLoading;
-  const LoginViewPage({super.key, required this.updateLogin, required this.showLoading});
+  //final Function(BuildContext) showLoading;
+  const LoginViewPage({super.key, required this.updateLogin});
 
   @override
   State<LoginViewPage> createState() => _LoginViewPageState();
@@ -24,19 +26,10 @@ class _LoginViewPageState extends State<LoginViewPage> {
     double height = 40;
     
     handleSubmitLogin() {
-      // Show loading circle
-      widget.showLoading(context);
-
-      // Simulate a delay (e.g., for a network request)
-      Future.delayed(const Duration(milliseconds: 200), () {
-        // Hide loading circle
-        Navigator.of(context).pop(); // Close the loading overlay
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const RecordPage()),
-        );        print("submit button clicked");
-      });
+      verifyLogin(context, emailTextController, passwordTextController);
     }
+
+
     return Column(
       children: [
         // Your login widgets
