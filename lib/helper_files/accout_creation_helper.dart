@@ -1,25 +1,6 @@
 import 'package:b_love_bear/colors/app_colors.dart';
 import 'package:flutter/material.dart';
-
-void showErrorDialog(BuildContext context, String errorString, String solutionString) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(errorString),
-        content: Text(solutionString),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context); // Dismiss the dialog
-            },
-            child: Text('DISMISS', style: TextStyle(color: AppColors.heartRed),),
-          ),
-        ],
-      );
-    },
-  );
-}
+import 'alert_dialog_helper.dart';
 
 void handleSubmitButton(BuildContext context, TextEditingController emailController, TextEditingController nicknameController, TextEditingController passwordController, TextEditingController confirmPasswordController,) {
   String password = passwordController.text;

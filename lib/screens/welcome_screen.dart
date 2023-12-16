@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:b_love_bear/helper_files/navigation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../colors/app_colors.dart';
@@ -30,64 +31,10 @@ class _WelcomePageState extends State<WelcomePage> {
         isLoggingIn = !isLoggingIn;
       });
     }
-    void showLoading(BuildContext context) {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Center(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: Container(
-                color: AppColors.heartRed.withOpacity(.6),
-                width: 150,
-                height: 150,
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(color: Colors.white,),
-                    SizedBox(height: 15,),
-                    Text('ATTEMPTING', style: TextStyle(color: Colors.white),),
-                    Text('LOGIN', style: TextStyle(color: Colors.white),),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      );
-    }
-
 
     // Function to handle creating an account
     handleCreateAccount() async {
-      Completer<bool> modalClosedCompleter = Completer<bool>();
-      // Shows screen pop up to make account
-      await showModalBottomSheet(
-        constraints: BoxConstraints(
-          maxWidth: ScreenSize.screenWidth
-        ),
-        backgroundColor: Colors.transparent,
-        context: context,
-        isScrollControlled: true,
-        isDismissible: true,
-        builder: (BuildContext context) {
-          return DraggableScrollableSheet(
-            initialChildSize: 0.95,
-            expand: true,
-            builder: (context, scrollController) {
-              return const CreateAccount();
-            },
-          );
-        },
-      ).whenComplete(() {
-        // The modal sheet is closed
-        print('Closing modal sheet...');
-        if (!modalClosedCompleter.isCompleted) {
-          modalClosedCompleter.complete(true);
-        }
-      });
+      handleNavigation(const CreateAccount(), context);
     }
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -117,7 +64,7 @@ class _WelcomePageState extends State<WelcomePage> {
               AnimatedSwitcher(
                   duration: const Duration(milliseconds: 150),
                   child: isLoggingIn
-                      ? LoginViewPage(updateLogin: handleLogIn, showLoading: showLoading,)
+                      ? LoginViewPage(updateLogin: handleLogIn)
                       : WelcomeView(updateLogin: handleLogIn, updateCreateAccount: handleCreateAccount,)
               )
             ],

@@ -23,8 +23,6 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   void initState() {
     super.initState();
-    print('Modal sheet opened...');
-
     // Start a timer to change the bear image every .5 seconds
     timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
       setState(() {

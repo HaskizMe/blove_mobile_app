@@ -14,7 +14,7 @@ class _BearsState extends State<Bears> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bears"),
+        title: const Text("Bears"),
       ),
       body: Container(
           height: ScreenSize.screenHeight,
