@@ -61,7 +61,7 @@ class _RecordPageState extends State<RecordPage> {
                     width: 150,
                     height: 150,
                     child: IconButton(
-                      icon: isRecording ? SvgPicture.asset('assets/StopButtonBig.svg') : SvgPicture.asset('assets/RecordButtonBig.svg'),
+                      icon: isRecording ? SvgPicture.asset('assets/StopButtonSmall.svg') : SvgPicture.asset('assets/RecordButtonBig.svg'),
                       padding: EdgeInsets.zero,
                       onPressed: () {
                         print("$isRecording");
