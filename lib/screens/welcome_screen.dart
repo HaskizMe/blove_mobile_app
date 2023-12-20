@@ -34,8 +34,9 @@ class _WelcomePageState extends State<WelcomePage> {
 
     // Function to handle creating an account
     handleCreateAccount() async {
-      handleNavigation(const CreateAccount(), context);
+      handleNavigation(const CreateAccount(), context, null);
     }
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.bLOVEBackground,
