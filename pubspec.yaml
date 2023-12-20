@@ -37,6 +37,9 @@ dependencies:
   device_preview: ^1.1.0
   flutter_screenutil: ^5.9.0
   flutter_launcher_icons: ^0.13.1
+  record: ^5.0.2
+  audioplayers: ^5.2.1
+  path_provider: ^2.1.1
 
 flutter_launcher_icons:
   android: true
@@ -89,7 +92,8 @@ flutter:
    - assets/RecordButtonBig.svg
    - assets/RecordButtonSmall.svg
    - assets/StopButtonSmall.svg
-   #- assets/StopButtonBig.svg
+   - assets/StopButtonBig.svg
+   - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

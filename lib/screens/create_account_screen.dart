@@ -228,7 +228,7 @@ class _AccountCreationState extends State<AccountCreation> {
                     confirmPasswordTextController,
                   );
                 },
-                hoverColor: Colors.transparent,
+                //hoverColor: Colors.transparent,
                 child: SvgPicture.asset(
                   'assets/HeartSubmitButtonBig.svg',
                   width: 150,

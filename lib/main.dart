@@ -2,7 +2,8 @@ import 'package:b_love_bear/screens/welcome_screen.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'global_variables/screen_size_values.dart';
-
+import 'package:record/record.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 
 /*
