@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'dart:math';
 
+import 'package:b_love_bear/custom_widgets/custom_confetti.dart';
 import 'package:b_love_bear/custom_widgets/custom_tile.dart';
 import 'package:b_love_bear/custom_widgets/ios_style_action_menu.dart';
+import 'package:b_love_bear/global_variables/screen_size_values.dart';
 import 'package:b_love_bear/screens/accounts_screen.dart';
 import 'package:b_love_bear/screens/bear_screen.dart';
 import 'package:b_love_bear/screens/sent_messages_screen.dart';
@@ -9,12 +12,14 @@ import 'package:b_love_bear/screens/settings_screen.dart';
 import 'package:b_love_bear/screens/setup_bear_screen.dart';
 import 'package:b_love_bear/screens/show_steps_screen.dart';
 import 'package:b_love_bear/screens/welcome_screen.dart';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../colors/app_colors.dart';
 import '../helper_files/audio_recording_helper.dart';
 import '../helper_files/data_managment.dart';
+import '../helper_files/draw_heart.dart';
 import '../helper_files/navigation_helper.dart';
 import 'package:record/record.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -28,6 +33,7 @@ class RecordPage extends StatefulWidget {
 }
 
 class _RecordPageState extends State<RecordPage> {
+  late ConfettiController confettiController;
   bool showNavigationMenu = false;
   bool showStop = false;
   bool showRecording = true;
@@ -36,12 +42,15 @@ class _RecordPageState extends State<RecordPage> {
   late AudioRecorder audioRecord;
   String? audioPath = '';
   bool isRecording = false;
+  late double topMenuPadding;
+  late double screenWidth;
 
 
   @override
   void initState() {
     audioPlayer = AudioPlayer();
     audioRecord = AudioRecorder();
+    confettiController = ConfettiController(duration: const Duration(seconds: 5));
     super.initState();
   }
 
@@ -49,10 +58,13 @@ class _RecordPageState extends State<RecordPage> {
   void dispose() {
     audioRecord.dispose();
     audioPlayer.dispose();
+    confettiController.dispose();
     super.dispose();
   }
 
   Future<void> recordButtonPressed() async {
+    // confettiController.play();
+
     try {
       await startRecording(audioPlayer, audioRecord);
       setState(() {
@@ -114,123 +126,128 @@ class _RecordPageState extends State<RecordPage> {
     if(!bears.any((bear) => bear.isSelected)){
       bears[0].isSelected = true;
     }
+    if(ScreenSize.screenHeight < 800){
+      topMenuPadding = 20.0;
+    } else {
+      topMenuPadding = 45.0;
+    }
+    if(ScreenSize.screenWidth > 428) {
+      screenWidth = 428;
+    } else {
+      screenWidth = ScreenSize.screenWidth;
+    }
     String bear = bears[bears.indexWhere((bear) => bear.isSelected)].name;
-
-
     return Scaffold(
       backgroundColor: AppColors.bLOVEBackground,
-      appBar: AppBar(
-        backgroundColor: AppColors.bLOVEBackground,
-        leading: MenuNavigation(
-          recordPageContext: context,
-          // This rebuilds the record screen when the draggable screen gets disposed
-          rebuildRecordPage: () {
-            setState(() {});
-            },),
-      ),
-      body: Stack(
-        children: [
-          Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Visibility(
-                      visible: showSend,
-                      child: const Column(
-                        children: [
-                          Text('STEP TWO:', style: TextStyle(fontWeight: FontWeight.bold),),
-                          SizedBox(height: 5,),
-                          Text("PRESS 'SEND' WHEN YOU'RE HAPPY"),
-                          Text("WITH YOUR bLOVE MESSAGE AND ARE"),
-                          Text("READY TO SEND IT TO YOUR bLOVE"),
-                          Text("BEAR."),
-                          //SizedBox(height: 40,),
-                        ],
-                      )
-                  ),
-                  Visibility(
-                      visible: !showSend,
-                      child: const Column(
-                        children: [
-                          Text('STEP ONE:', style: TextStyle(fontWeight: FontWeight.bold),),
-                          SizedBox(height: 5,),
-                          Text('PRESS THE RED ICON TO RECORD YOUR'),
-                          Text('bLOVE MESSAGE.'),
-                          //SizedBox(height: 40,),
-                        ],
-                      )
-                  ),
-                  const SizedBox(height: 40,),
-                  Visibility(
-                    visible: showRecording,
-                    child: IconButton(
-                      icon: SvgPicture.asset('assets/RecordButtonBig.svg', width: 150, height: 150,),
-                      padding: EdgeInsets.zero,
-                      // ),                        //
-                      onPressed: recordButtonPressed,
-                    ),
-                  ),
-                  Visibility(
-                    visible: showStop,
-                    child: IconButton(
-                        icon: SvgPicture.asset('assets/StopButtonBig.svg', width: 150, height: 150,),
-                        padding: EdgeInsets.zero,
-                        onPressed: stopRecording
-                    ),
-                  ),
-                  Visibility(
-                    visible: showSend,
-                    child: IconButton(
-                      icon: SvgPicture.asset('assets/HeartSubmitButtonBig.svg' , width: 150, height: 150,),
-                      padding: EdgeInsets.zero,
-                      onPressed: () {
-                        setState(() {
-                          showSend = !showSend;
-                          showRecording = !showRecording;
-                        });
-                      },
-                    ),
-                  ),
-                  if(showSend)
-                    Column(
-                      children: [
-                        TextButton(
-                          onPressed: playRecording,
-                          child: const Text('Play Recording', style: TextStyle(color: AppColors.heartRed, fontSize: 20),),
-                        ),
-                        TextButton(
-                          onPressed: reset,
-                          child: const Text('Reset', style: TextStyle(color: AppColors.heartRed),),
-                        ),
-                      ],
-                    ),
-                  const SizedBox(height: 20,),
-                  Text(bear, style: const TextStyle(fontSize: 20),),
-                  const SizedBox(height: 10,),
-                  SvgPicture.asset('assets/bLOVEbEARFrontBig.svg', width: 250, height: 250,),
-                ],
+      body: Center(
+        child: Container(
+          color: AppColors.bLOVEBackground,
+          width: screenWidth,
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: CustomConfetti(controller: confettiController,)
               ),
-            ),
-          ),
-          if (showNavigationMenu)
-            Positioned(
-              top: 10.0,
-              left: 10.0,
-              child: Visibility(
-                visible: showNavigationMenu,
-                child: MenuNavigation(
-                  recordPageContext: context,
-                  // This rebuilds the record screen when the draggable screen gets disposed
-                  rebuildRecordPage: () {
-                    setState(() {
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(15.0, topMenuPadding, 0.0, 0.0),
+                  child: MenuNavigation(
+                    rebuildRecordPage: () {
+                      setState(() {
 
-                    });
-                  },
+                      });
+                    }, recordPageContext: context,
+                  ),
                 ),
               ),
-            ),
-        ],
+              Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Visibility(
+                          visible: showSend,
+                          child: const Column(
+                            children: [
+                              Text('STEP TWO:', style: TextStyle(fontWeight: FontWeight.bold),),
+                              SizedBox(height: 5,),
+                              Text("PRESS 'SEND' WHEN YOU'RE HAPPY"),
+                              Text("WITH YOUR bLOVE MESSAGE AND ARE"),
+                              Text("READY TO SEND IT TO YOUR bLOVE"),
+                              Text("BEAR."),
+                              //SizedBox(height: 40,),
+                            ],
+                          )
+                      ),
+                      Visibility(
+                          visible: !showSend,
+                          child: const Column(
+                            children: [
+                              Text('STEP ONE:', style: TextStyle(fontWeight: FontWeight.bold),),
+                              SizedBox(height: 5,),
+                              Text('PRESS THE RED ICON TO RECORD YOUR'),
+                              Text('bLOVE MESSAGE.'),
+                              //SizedBox(height: 40,),
+                            ],
+                          )
+                      ),
+                      const SizedBox(height: 40,),
+                      Visibility(
+                        visible: showRecording,
+                        child: IconButton(
+                          icon: SvgPicture.asset('assets/RecordButtonBig.svg', width: 150, height: 150,),
+                          padding: EdgeInsets.zero,
+                          onPressed: recordButtonPressed,
+                        ),
+                      ),
+                      Visibility(
+                        visible: showStop,
+                        child: IconButton(
+                            icon: SvgPicture.asset('assets/StopButtonBig.svg', width: 150, height: 150,),
+                            padding: EdgeInsets.zero,
+                            onPressed: stopRecording
+                        ),
+                      ),
+                      Visibility(
+                        visible: showSend,
+                        child: IconButton(
+                          icon: SvgPicture.asset('assets/HeartSubmitButtonBig.svg' , width: 150, height: 150,),
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            confettiController.play();
+                            setState(() {
+                              showSend = !showSend;
+                              showRecording = !showRecording;
+                            });
+                          },
+                        ),
+                      ),
+                      if(showSend)
+                        Column(
+                          children: [
+                            TextButton(
+                              onPressed: playRecording,
+                              child: const Text('Play Recording', style: TextStyle(color: AppColors.heartRed, fontSize: 20),),
+                            ),
+                            TextButton(
+                              onPressed: reset,
+                              child: const Text('Reset', style: TextStyle(color: AppColors.heartRed),),
+                            ),
+                          ],
+                        ),
+                      const SizedBox(height: 20,),
+                      Text(bear, style: const TextStyle(fontSize: 20),),
+                      const SizedBox(height: 10,),
+                      SvgPicture.asset('assets/bLOVEbEARFrontBig.svg', width: 250, height: 250,),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

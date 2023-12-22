@@ -1,5 +1,6 @@
 import 'package:b_love_bear/custom_widgets/bear_card.dart';
 import 'package:b_love_bear/helper_files/data_managment.dart';
+import 'package:b_love_bear/screens/record_screen.dart';
 import 'package:flutter/material.dart';
 import '../colors/app_colors.dart';
 
@@ -38,6 +39,8 @@ class _BearsState extends State<Bears> {
                       bears[index] = BearCard(isSelected: true, name: bear.name);
                     }
                   });
+                  // Closes window and goes to record page
+                  Navigator.pop(context);
                 },
                 child: bears[index],
               );
