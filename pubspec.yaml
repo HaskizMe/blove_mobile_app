@@ -41,6 +41,9 @@ dependencies:
   audioplayers: ^5.2.1
   path_provider: ^2.1.1
   intl: ^0.18.1
+  flutter_blue_plus: ^1.30.8
+  get: ^4.6.6
+  permission_handler: ^11.1.0
 
 flutter_launcher_icons:
   android: true
@@ -86,6 +89,7 @@ flutter:
    - assets/HeartConnectButtonBig.svg
    - assets/HeartConnectButtonSmall.svg
    - assets/HeartNextButtonSmall.svg
+   - assets/HeartNextButtonBig.svg
    - assets/HeartPinkButtonNoTextBig.svg
    - assets/HeartSendButtonBig.svg
    - assets/HeartSubmitButtonBig.svg

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:b_love_bear/custom_widgets/custom_tile.dart';
+import 'package:b_love_bear/custom_widgets/ios_style_action_menu.dart';
 import 'package:b_love_bear/screens/accounts_screen.dart';
 import 'package:b_love_bear/screens/bear_screen.dart';
 import 'package:b_love_bear/screens/sent_messages_screen.dart';
@@ -8,6 +9,7 @@ import 'package:b_love_bear/screens/settings_screen.dart';
 import 'package:b_love_bear/screens/setup_bear_screen.dart';
 import 'package:b_love_bear/screens/show_steps_screen.dart';
 import 'package:b_love_bear/screens/welcome_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../colors/app_colors.dart';
@@ -123,9 +125,7 @@ class _RecordPageState extends State<RecordPage> {
           recordPageContext: context,
           // This rebuilds the record screen when the draggable screen gets disposed
           rebuildRecordPage: () {
-            setState(() {
-
-            });
+            setState(() {});
             },),
       ),
       body: Stack(
@@ -233,136 +233,6 @@ class _RecordPageState extends State<RecordPage> {
         ],
       ),
     );
-    //   GestureDetector(
-    //   onTap: () {
-    //     if (showNavigationMenu) {
-    //       setState(() {
-    //         showNavigationMenu = false;
-    //       });
-    //     }
-    //   },
-    //   child: Scaffold(
-    //     backgroundColor: AppColors.bLOVEBackground,
-    //     appBar: AppBar(
-    //       backgroundColor: AppColors.bLOVEBackground,
-    //       leading: TextButton(
-    //         onPressed: () {
-    //           setState(() {
-    //             showNavigationMenu = !showNavigationMenu;
-    //           });
-    //         },
-    //         child: Icon(
-    //           Icons.menu,
-    //           color: showNavigationMenu ? Colors.grey : Colors.black,
-    //         ),
-    //       ),
-    //     ),
-    //     body: Stack(
-    //       children: [
-    //         Center(
-    //           child: SingleChildScrollView(
-    //             child: Column(
-    //               mainAxisAlignment: MainAxisAlignment.center,
-    //               children: [
-    //                 Visibility(
-    //                     visible: showSend,
-    //                     child: const Column(
-    //                       children: [
-    //                         Text('STEP TWO:', style: TextStyle(fontWeight: FontWeight.bold),),
-    //                         SizedBox(height: 5,),
-    //                         Text("PRESS 'SEND' WHEN YOU'RE HAPPY"),
-    //                         Text("WITH YOUR bLOVE MESSAGE AND ARE"),
-    //                         Text("READY TO SEND IT TO YOUR bLOVE"),
-    //                         Text("BEAR."),
-    //                         //SizedBox(height: 40,),
-    //                       ],
-    //                     )
-    //                 ),
-    //                 Visibility(
-    //                     visible: !showSend,
-    //                     child: const Column(
-    //                       children: [
-    //                         Text('STEP ONE:', style: TextStyle(fontWeight: FontWeight.bold),),
-    //                         SizedBox(height: 5,),
-    //                         Text('PRESS THE RED ICON TO RECORD YOUR'),
-    //                         Text('bLOVE MESSAGE.'),
-    //                         //SizedBox(height: 40,),
-    //                       ],
-    //                     )
-    //                 ),
-    //                 const SizedBox(height: 40,),
-    //                 Visibility(
-    //                   visible: showRecording,
-    //                   child: IconButton(
-    //                     icon: SvgPicture.asset('assets/RecordButtonBig.svg', width: 150, height: 150,),
-    //                     padding: EdgeInsets.zero,
-    //                   // ),                        //
-    //                   onPressed: recordButtonPressed,
-    //                   ),
-    //                 ),
-    //                 Visibility(
-    //                   visible: showStop,
-    //                   child: IconButton(
-    //                     icon: SvgPicture.asset('assets/StopButtonBig.svg', width: 150, height: 150,),
-    //                     padding: EdgeInsets.zero,
-    //                     onPressed: stopRecording
-    //                   ),
-    //                 ),
-    //                 Visibility(
-    //                   visible: showSend,
-    //                   child: IconButton(
-    //                     icon: SvgPicture.asset('assets/HeartSubmitButtonBig.svg' , width: 150, height: 150,),
-    //                     padding: EdgeInsets.zero,
-    //                     onPressed: () {
-    //                       setState(() {
-    //                         showSend = !showSend;
-    //                         showRecording = !showRecording;
-    //                       });
-    //                     },
-    //                   ),
-    //                 ),
-    //                 if(showSend)
-    //                   Column(
-    //                     children: [
-    //                       TextButton(
-    //                         onPressed: playRecording,
-    //                         child: const Text('Play Recording', style: TextStyle(color: AppColors.heartRed, fontSize: 20),),
-    //                       ),
-    //                       TextButton(
-    //                         onPressed: reset,
-    //                         child: const Text('Reset', style: TextStyle(color: AppColors.heartRed),),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 const SizedBox(height: 20,),
-    //                 Text(bear, style: const TextStyle(fontSize: 20),),
-    //                 const SizedBox(height: 10,),
-    //                 SvgPicture.asset('assets/bLOVEbEARFrontBig.svg', width: 250, height: 250,),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //         if (showNavigationMenu)
-    //           Positioned(
-    //             top: 10.0,
-    //             left: 10.0,
-    //             child: Visibility(
-    //               visible: showNavigationMenu,
-    //               child: MenuNavigation(
-    //                 recordPageContext: context,
-    //                 // This rebuilds the record screen when the draggable screen gets disposed
-    //                 rebuildRecordPage: () {
-    //                   setState(() {
-    //
-    //                   });
-    //                   },
-    //               ),
-    //             ),
-    //           ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
 
@@ -379,9 +249,12 @@ class _MenuNavigationState extends State<MenuNavigation> {
   @override
   Widget build(BuildContext context) {
     handleLogOut() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const WelcomePage()),
+      showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+          context: widget.recordPageContext,
+          builder: (BuildContext context) {
+            return const CustomActionSheet();
+          }
       );
     }
 
@@ -399,12 +272,12 @@ class _MenuNavigationState extends State<MenuNavigation> {
           handleNavigation(const SetupBear(), widget.recordPageContext, widget.rebuildRecordPage,);
         } else if (value == 'accounts'){
           handleNavigation(const Accounts(), widget.recordPageContext, widget.rebuildRecordPage,);
-        } else if (value == 'setttings'){
+        } else if (value == 'settings'){
           handleNavigation(const Settings(), widget.recordPageContext, widget.rebuildRecordPage,);
         } else if (value == 'logout'){
           handleLogOut();
         } else {
-          print("Error");
+          print("Pop up Menu doesn't contain that string name");
         }
         // Add more conditions for other menu items
       },
