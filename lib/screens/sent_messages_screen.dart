@@ -21,7 +21,7 @@ class _SentMessagesState extends State<SentMessages> {
   @override
   Widget build(BuildContext context) {
     return const ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
       child: Scaffold(
         backgroundColor: AppColors.bLOVEBackground,
         body: Padding(

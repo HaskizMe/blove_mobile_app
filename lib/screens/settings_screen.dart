@@ -1,7 +1,10 @@
 import 'dart:math';
 
+import 'package:b_love_bear/custom_widgets/custom_confetti.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+
+import '../helper_files/draw_heart.dart';
 
 void main() => runApp(const Settings());
 
@@ -72,10 +75,8 @@ class _MyAppState extends State<MyApp> {
     path.moveTo(size.width, halfWidth);
 
     for (double step = 0; step < fullAngle; step += degreesPerStep) {
-      path.lineTo(halfWidth + externalRadius * cos(step),
-          halfWidth + externalRadius * sin(step));
-      path.lineTo(halfWidth + internalRadius * cos(step + halfDegreesPerStep),
-          halfWidth + internalRadius * sin(step + halfDegreesPerStep));
+      path.lineTo(halfWidth + externalRadius * cos(step), halfWidth + externalRadius * sin(step));
+      path.lineTo(halfWidth + internalRadius * cos(step + halfDegreesPerStep), halfWidth + internalRadius * sin(step + halfDegreesPerStep));
     }
     path.close();
     return path;
@@ -91,8 +92,7 @@ class _MyAppState extends State<MyApp> {
             alignment: Alignment.center,
             child: ConfettiWidget(
               confettiController: _controllerCenter,
-              blastDirectionality: BlastDirectionality
-                  .explosive, // don't specify a direction, blast randomly
+              blastDirectionality: BlastDirectionality.explosive, // don't specify a direction, blast randomly
               shouldLoop:
               true, // start again as soon as the animation is finished
               colors: const [
@@ -104,6 +104,7 @@ class _MyAppState extends State<MyApp> {
               ], // manually specify the colors to be used
               createParticlePath: drawStar, // define a custom shape/path.
             ),
+            // CustomConfetti2(controller: _controllerCenter,)
           ),
           Align(
             alignment: Alignment.center,

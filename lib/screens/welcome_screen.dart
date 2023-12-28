@@ -61,7 +61,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 width: ScreenSize.screenWidth * .6, // Size of image based on screen width
                 height: ScreenSize.screenHeight * .35, // Size of image based on screen width
               ),
-              const SizedBox(height: 60,),
+              //const SizedBox(height: 60,),
 
               // Switches between login and create account views
               AnimatedSwitcher(
@@ -98,6 +98,8 @@ class WelcomeView extends StatelessWidget {
           height: height,
           borderRadius: 15.0,
           buttonName: 'LOG IN',
+          borderColor: Colors.black,
+          fontSize: 18,
         ),
         const SizedBox(height: 10,),
         CustomButton(
@@ -108,6 +110,8 @@ class WelcomeView extends StatelessWidget {
           height: height,
           borderRadius: 15.0,
           buttonName: 'CREATE ACCOUNT',
+          borderColor: AppColors.heartRed,
+          fontSize: 18,
         ),
       ],
     );
