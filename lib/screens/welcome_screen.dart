@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:b_love_bear/helper_files/navigation_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import '../colors/app_colors.dart';
 import '../custom_widgets/custom_button.dart';
@@ -42,7 +43,8 @@ class _WelcomePageState extends State<WelcomePage> {
       backgroundColor: AppColors.bLOVEBackground,
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
+          child:
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -57,7 +59,7 @@ class _WelcomePageState extends State<WelcomePage> {
               SvgPicture.asset(
                 bLoveBearLogo,
                 width: ScreenSize.screenWidth * .6, // Size of image based on screen width
-                height: ScreenSize.screenWidth * .6, // Size of image based on screen width
+                height: ScreenSize.screenHeight * .35, // Size of image based on screen width
               ),
               const SizedBox(height: 60,),
 
@@ -89,7 +91,7 @@ class WelcomeView extends StatelessWidget {
       children: [
         // Your non-login widgets
         CustomButton(
-          width: ScreenSize.screenWidth * .8,
+          width: 300,
           handleButton: updateLogin,
           buttonColor: AppColors.bLOVEBackground,
           textColor: Colors.black,
@@ -99,7 +101,7 @@ class WelcomeView extends StatelessWidget {
         ),
         const SizedBox(height: 10,),
         CustomButton(
-          width: ScreenSize.screenWidth * .8,
+          width: 300,
           handleButton: updateCreateAccount,
           buttonColor: AppColors.heartRed,
           textColor: Colors.white,

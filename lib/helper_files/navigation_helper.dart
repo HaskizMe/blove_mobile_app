@@ -17,7 +17,7 @@ handleNavigation(Widget navigateToWidget, BuildContext context, VoidCallback? on
     isDismissible: true,
     builder: (BuildContext context) {
       return DraggableScrollableSheet(
-        initialChildSize: 0.95,
+        initialChildSize: 0.92,
         expand: true,
         builder: (recordPageContext, scrollController) {
           return navigateToWidget;
