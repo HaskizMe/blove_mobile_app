@@ -16,7 +16,7 @@ class _BearsState extends State<Bears> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: const BorderRadius.vertical(top: Radius.circular(30.0)),
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0)),
       child: Scaffold(
         backgroundColor: AppColors.bLOVEBackground,
         body: Padding(

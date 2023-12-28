@@ -25,7 +25,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of the application.
+  // This widget is the root of the applicatgion.
   @override
   Widget build(BuildContext context) {
     ScreenSize.initialize(context);

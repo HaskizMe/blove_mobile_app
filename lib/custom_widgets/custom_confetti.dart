@@ -16,12 +16,17 @@ class CustomConfetti extends StatelessWidget {
       confettiController: controller,
       blastDirection: pi / 2,
       blastDirectionality: BlastDirectionality.explosive,
-      maxBlastForce: 10, // set a lower max blast force
-      minBlastForce: 5, // set a lower min blast force
-      emissionFrequency: 0.2,
-      numberOfParticles: 10, // a lot of particles at once
-      gravity: 1,
-      createParticlePath: drawHeart,
+      // minimumSize: const Size(10, 10), // set the minimum potential size for the confetti (width, height)
+      // maximumSize: const Size(30, 30),
+      // particleDrag: 0.05,
+      // // maxBlastForce: 10, // set a lower max blast force
+      // // minBlastForce: 5, // set a lower min blast force
+      // emissionFrequency: 0.05,
+      numberOfParticles: 20, // a lot of particles at once
+      // gravity: .05,
+      shouldLoop: false,
+      // createParticlePath: (size) => staticHeartPath(),
+      // createParticlePath: drawHeart,
       colors: const [
         AppColors.heartRed,
         AppColors.heartPink,
@@ -30,3 +35,6 @@ class CustomConfetti extends StatelessWidget {
     );
   }
 }
+
+
+

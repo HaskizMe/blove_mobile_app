@@ -56,6 +56,8 @@ class _LoginViewPageState extends State<LoginViewPage> {
           height: 40,
           borderRadius: 15.0,
           buttonName: 'CANCEL',
+          borderColor: Colors.black,
+          fontSize: 18,
         ),
         const SizedBox(height: 10,),
         CustomButton(
@@ -66,6 +68,8 @@ class _LoginViewPageState extends State<LoginViewPage> {
           height: 40,
           borderRadius: 15.0,
           buttonName: 'SUBMIT',
+          borderColor: AppColors.heartRed,
+          fontSize: 18,
         ),
         const SizedBox(height: 10,),
       ],

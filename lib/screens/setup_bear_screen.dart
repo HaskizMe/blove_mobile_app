@@ -18,11 +18,11 @@ class _SetupBearState extends State<SetupBear> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0)),
       child: Scaffold(
         backgroundColor: AppColors.bLOVEBackground,
         body: Padding(
-          padding: EdgeInsets.fromLTRB(5.0, 15.0, 5.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(5.0, 15.0, 5.0, 0.0),
           child: Center(
             child: showInstructionLayout
                 ? InstructionsLayout(onSwitchLayout: () {
@@ -151,8 +151,10 @@ class _BluetoothConnectState extends State<BluetoothConnect> {
                             buttonColor: AppColors.heartRed,
                             textColor: Colors.white,
                             height: 40,
-                            borderRadius: 1.0,
-                            buttonName: 'Scan'
+                            borderRadius: 10.0,
+                            buttonName: 'Scan',
+                            borderColor: AppColors.heartRed,
+                            fontSize: 18,
                         ),
                         const SizedBox(height: 20,),
                         SingleChildScrollView(

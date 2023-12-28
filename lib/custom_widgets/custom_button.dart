@@ -8,6 +8,8 @@ class CustomButton extends StatelessWidget {
   final Function handleButton;
   final Color buttonColor;
   final Color textColor;
+  final Color borderColor;
+  final double fontSize;
   const CustomButton({
     super.key,
     required this.width,
@@ -16,13 +18,15 @@ class CustomButton extends StatelessWidget {
     required this.textColor,
     required this.height,
     required this.borderRadius,
-    required this.buttonName
+    required this.buttonName,
+    required this.borderColor,
+    required this.fontSize
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width, // Making button 80% of screen width
+      width: width,
       height: height,
       child: OutlinedButton(
         onPressed: () {
@@ -31,13 +35,15 @@ class CustomButton extends StatelessWidget {
         },
         style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0)
+              borderRadius: BorderRadius.circular(borderRadius)
           ),
-          //// FIX COLOR
           backgroundColor: buttonColor,
-          side: const BorderSide(color: Colors.black),
+          side: BorderSide(color: borderColor),
         ),
-        child: Text(buttonName, style: TextStyle(color: textColor, fontSize: 18),),
+        child: Text(
+          buttonName,
+          style: TextStyle(color: textColor, fontSize: fontSize),
+        ),
       ),
     );
   }
