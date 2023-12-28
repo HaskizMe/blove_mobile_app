@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import '../colors/app_colors.dart';
 import '../global_variables/screen_size_values.dart';
 import '../helper_files/accout_creation_helper.dart';
+import 'package:flutter/services.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -17,7 +18,7 @@ class _CreateAccountState extends State<CreateAccount> {
   final String bearWithoutGlowingHeart = 'assets/bLOVEbEARFrontBig.svg';
   final String bearWithGlowingHeart = 'assets/bLOVEbEARWithGlowingHeartBig.svg';
   String currentBearImage = 'assets/bLOVEbEARFrontBig.svg';
-  late Timer timer;
+  Timer? timer;
   bool showAccountCreationLayout = false; // Add this variable
 
   @override
@@ -36,7 +37,7 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   void dispose() {
     // Cancel the timer when the widget is disposed
-    timer.cancel();
+    timer?.cancel();
     super.dispose();
   }
 
@@ -184,7 +185,6 @@ class _AccountCreationState extends State<AccountCreation> {
             children: [
               SvgPicture.asset("assets/bLOVEbEARFrontBig.svg", width: ScreenSize.screenWidth *.3, height: ScreenSize.screenHeight *.3,),
               const SizedBox(height: 40,),
-
               CustomTextField(
                   width: 300,
                   textController: emailTextController,

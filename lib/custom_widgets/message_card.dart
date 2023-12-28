@@ -5,7 +5,13 @@ import 'package:intl/intl.dart';
 import '../colors/app_colors.dart';
 
 class SentMessageCard extends StatelessWidget {
-  const SentMessageCard({super.key});
+  final bool isListened;
+  final String bearName;
+  const SentMessageCard({
+    super.key,
+    required this.isListened,
+    required this.bearName
+    });
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +32,20 @@ class SentMessageCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Colton's Bear", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text("$bearName's Bear", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   Text(currentDate),
                 ],
               ),
             ),
             Column(
               children: [
-                SvgPicture.asset('assets/bLOVEbEARFrontBig.svg', width: 75, height: 75,),
+                isListened
+                    ? SvgPicture.asset("assets/bLOVEbEARFrontBig.svg", width: 75, height: 75,)
+                    : SvgPicture.asset("assets/bLOVEbEARWithGlowingHeartBig.svg", width: 75, height: 75,),
                 const SizedBox(height: 2,),
-                Text('Recieved'),
+                isListened
+                    ? const Text("Listened")
+                    : const Text('Received'),
               ],
             )
           ],

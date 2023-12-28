@@ -28,8 +28,8 @@ class _SentMessagesState extends State<SentMessages> {
           padding: EdgeInsets.fromLTRB(5.0, 15.0, 5.0, 0.0),
           child: Column(
             children: [
-              SentMessageCard(),
-              SentMessageCard(),
+              SentMessageCard(isListened: true, bearName: "Colton",),
+              SentMessageCard(isListened: false, bearName: "Bailey",),
             ],
           ),
         ),

@@ -29,12 +29,11 @@ class _LoginViewPageState extends State<LoginViewPage> {
       verifyLogin(context, emailTextController, passwordTextController);
     }
 
-
     return Column(
       children: [
         // Your login widgets
         CustomTextField(
-          width: ScreenSize.screenWidth * .8,
+          width: 300,
           textController: emailTextController,
           height: height,
           hintText: "EMAIL ADDRESS",
@@ -42,7 +41,7 @@ class _LoginViewPageState extends State<LoginViewPage> {
         ),
         const SizedBox(height: 10,),
         CustomTextField(
-          width: ScreenSize.screenWidth * .8,
+          width: 300,
           textController: passwordTextController,
           height: height,
           hintText: "PASSWORD",
@@ -50,7 +49,7 @@ class _LoginViewPageState extends State<LoginViewPage> {
         ),
         const SizedBox(height: 10,),
         CustomButton(
-          width: ScreenSize.screenWidth * .8,
+          width: 300,
           handleButton: widget.updateLogin,
           buttonColor: AppColors.bLOVEBackground,
           textColor: Colors.black,
@@ -60,7 +59,7 @@ class _LoginViewPageState extends State<LoginViewPage> {
         ),
         const SizedBox(height: 10,),
         CustomButton(
-          width: ScreenSize.screenWidth * .8,
+          width: 300,
           handleButton: handleSubmitLogin,
           buttonColor: AppColors.heartRed,
           textColor: Colors.white,

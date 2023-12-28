@@ -45,6 +45,8 @@ dependencies:
   get: ^4.6.6
   permission_handler: ^11.1.0
   confetti: ^0.7.0
+  vibration: ^1.8.4
+  async: ^2.11.0
 
 flutter_launcher_icons:
   android: true
