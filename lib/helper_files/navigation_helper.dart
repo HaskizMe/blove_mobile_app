@@ -16,12 +16,22 @@ handleNavigation(Widget navigateToWidget, BuildContext context, VoidCallback? on
     isScrollControlled: true,
     isDismissible: true,
     builder: (BuildContext context) {
-      return DraggableScrollableSheet(
-        initialChildSize: 0.92,
-        expand: true,
-        builder: (recordPageContext, scrollController) {
-          return navigateToWidget;
+      return NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification scrollNotification) {
+          if (scrollNotification.metrics.atEdge &&
+              scrollNotification.metrics.pixels == 0.0 &&
+              scrollNotification.metrics.axis == Axis.vertical) {
+            print('At the top of the DraggableScrollableSheet');
+          }
+          return false;
         },
+        child: DraggableScrollableSheet(
+          initialChildSize: 0.92,
+          expand: true,
+          builder: (recordPageContext, scrollController) {
+            return navigateToWidget;
+          },
+        ),
       );
     },
   ).whenComplete(() {
