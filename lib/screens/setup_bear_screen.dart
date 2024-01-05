@@ -83,7 +83,7 @@ class BluetoothConnect extends StatefulWidget {
 class _BluetoothConnectState extends State<BluetoothConnect> {
   bool isScanning = false;
   bool isConnected = false;
-  String deviceName = "PainDrain";
+  String deviceName = "bLove";
 
   void onButtonPressed(BluetoothController controller) async {
     setState(() {
