@@ -20,7 +20,7 @@ class _SentMessagesState extends State<SentMessages> {
 
   @override
   Widget build(BuildContext context) {
-    return const ClipRRect(
+    return ClipRRect(
       borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
       child: Scaffold(
         backgroundColor: AppColors.bLOVEBackground,
@@ -28,8 +28,23 @@ class _SentMessagesState extends State<SentMessages> {
           padding: EdgeInsets.fromLTRB(5.0, 15.0, 5.0, 0.0),
           child: Column(
             children: [
-              SentMessageCard(isListened: true, bearName: "Colton",),
-              SentMessageCard(isListened: false, bearName: "Bailey",),
+              Container(
+                width: ScreenSize.screenWidth * .3,
+                height: 8,
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(.6),
+                    borderRadius: BorderRadius.circular(20.0)
+                ),
+              ),
+              const SizedBox(height: 25,),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int index) {
+                    return const SentMessageCard(isListened: false, bearName: "Bailey");
+                  },
+                ),
+              ),
             ],
           ),
         ),

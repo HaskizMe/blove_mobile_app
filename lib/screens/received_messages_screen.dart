@@ -25,9 +25,27 @@ class _ReceivedMessagesState extends State<ReceivedMessages> {
           padding: const EdgeInsets.fromLTRB(5.0, 15.0, 5.0, 0.0),
           child: Column(
             children: [
-              ReceivedMessageCard(email: "Haskellb2017@gmail.com", date: currentDate, isListened: true),
-              ReceivedMessageCard(email: "asdfasdfasdfasdfasdfasdfafsdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfas", date: currentDate, isListened: false)
-
+              Container(
+                width: ScreenSize.screenWidth * .3,
+                height: 8,
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(.6),
+                    borderRadius: BorderRadius.circular(20.0)
+                ),
+              ),
+              const SizedBox(height: 25,),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ReceivedMessageCard(
+                      email: "Haskellb2017@gmail.com", // Replace this with dynamic data if needed
+                      date: currentDate, // Replace this with dynamic data if needed
+                      isListened: index == 0, // Mark the first item as listened
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
