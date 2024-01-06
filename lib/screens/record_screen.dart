@@ -100,14 +100,11 @@ class _RecordPageState extends State<RecordPage> {
             backgroundColor: AppColors.bLOVEBackground,
             appBar: AppBar(
               backgroundColor: AppColors.bLOVEBackground,
-              leading: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: MenuNavigation(
-                  rebuildRecordPage: () {
-                    setState(() {});
-                    }, recordPageContext: context,
-                  iconSize: 26,
-                ),
+              leading: MenuNavigation(
+                rebuildRecordPage: () {
+                  setState(() {});
+                  }, recordPageContext: context,
+                iconSize: 26,
               ),
               actions: [
               Padding(

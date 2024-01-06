@@ -14,46 +14,81 @@ class Accounts extends StatefulWidget {
 class _AccountsState extends State<Accounts> {
   @override
   Widget build(BuildContext context) {
-    return const ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0)),
       child: Scaffold(
-        // backgroundColor: AppColors.bLOVEBackground,
-        body: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 0.0),
+        body: Container(
+          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 0.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start, // Add this line
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                  child: Text(
-                      "Requests",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              Center(
+                child: Container(
+                  width: ScreenSize.screenWidth * .3,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(.6),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
-              ),
-              AccountsCard(email: "MckennaColeman@gmail.com", accountType: 'request',),
-              AccountsCard(email: "BaileyHaskeasdfasdfasdfasdfll@gmail.com", accountType: 'request',),
-              // FriendRequestCard(email: "Haskellb2017@gmail.com"),
-              // FriendRequestCard(email: "Haskellb20dsalfgiohsadfl;kijhsadfoilh;sdgh;ijlosdghlo;igdfshio;dgfsh;ilogdsa;hloigdsafh;jlnkgsd17@gmail.com"),
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text(
-                  "Approved Accounts",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
-              AccountsCard(email: "MckennaColeman@gmail.com", accountType: 'approved',),
-              AccountsCard(email: "BaileyasdfasdfasdfHaskell@gmail.com", accountType: 'approved',),
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text(
-                  "Blocked Accounts",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              const SizedBox(height: 25,),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          "Requests",
+                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 10,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return const AccountsCard(email: "Haskellb2017@gmail.com", accountType: "request");
+                        },
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          "Approved Accounts",
+                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 10,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return const AccountsCard(email: "Haskellb2017@gmail.com", accountType: "approved");
+                        },
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          "Blocked Accounts",
+                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 10,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return const AccountsCard(email: "Haskellb2017@gmail.com", accountType: "blocked");
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              AccountsCard(email: "MckennaColeman@gmail.com", accountType: 'blocked',),
-              AccountsCard(email: "BaileyHdsfgasdfasdfasdfaskell@gmail.com", accountType: 'blocked',),
-
             ],
           ),
         ),

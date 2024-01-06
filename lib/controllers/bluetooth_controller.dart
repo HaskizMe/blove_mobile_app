@@ -24,5 +24,86 @@ class BluetoothController extends GetxController {
     }
   }
 
+  Future connectDevice(BluetoothDevice device) async {
+    var subscription = device.connectionState.listen((BluetoothConnectionState state) async {
+      if (state == BluetoothConnectionState.disconnected) {
+        // 1. typically, start a periodic timer that tries to
+        //    reconnect, or just call connect() again right now
+        // 2. you must always re-discover services after disconnection!
+        print("Disconnect reason: ${device.disconnectReason}");
+      }
+    });
+    if(device.isConnected){
+      try {
+        await device.connect();
+        subscription.cancel();
+        print("Device disconnected successfully");
+      } catch(e){
+        print("disconnection failed");
+      }
+    }
+    else{
+      try {
+        await device.connect();
+        print("is Connected");
+      } catch(e){
+        print("connection failed");
+      }
+    }
+// listen for disconnection
+//     var subscription = device.connectionState.listen((BluetoothConnectionState state) async {
+//       if (state == BluetoothConnectionState.disconnected) {
+//         // 1. typically, start a periodic timer that tries to
+//         //    reconnect, or just call connect() again right now
+//         // 2. you must always re-discover services after disconnection!
+//         print("Disconnect reason: ${device.disconnectReason}");
+//       }
+//     });
+//
+//     if(!device.isConnected){
+//       await device.connect();
+//     }
+//     else{
+//       await device.disconnect();
+//       subscription.cancel();
+//     }
+
+
+    // var subscription = device.connectionState.listen((BluetoothConnectionState state) async {
+    //   if (state == BluetoothConnectionState.disconnected) {
+    //     // 1. typically, start a periodic timer that tries to
+    //     //    reconnect, or just call connect() again right now
+    //     // 2. you must always re-discover services after disconnection!
+    //     print("${device.disconnectReason}");
+    //   }
+    // });
+    // if(device.isConnected){
+    //   try {
+    //     await device.connect();
+    //     subscription.cancel();
+    //     print("Device disconnected successfully");
+    //   } catch(e){
+    //     print("disconnection failed");
+    //   }
+    // }
+    // else{
+    //   try {
+    //     await device.connect();
+    //     print("is Connected");
+    //   } catch(e){
+    //     print("connection failed");
+    //   }
+    // }
+    // var subscription = device.connectionState.listen((BluetoothConnectionState state) async {
+    //   if (state == BluetoothConnectionState.disconnected) {
+    //     // 1. typically, start a periodic timer that tries to
+    //     //    reconnect, or just call connect() again right now
+    //     // 2. you must always re-discover services after disconnection!
+    //     print("${device.disconnectReason}");
+    //   }
+    // });
+
+  }
+
   Stream<List<ScanResult>> get scanResults => FlutterBluePlus.scanResults;
 }
