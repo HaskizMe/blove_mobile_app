@@ -8,6 +8,7 @@ class AudioRecorderManager {
   late AudioPlayer _audioPlayer;
   late AudioRecorder _audioRecorder;
   late String _audioPath;
+  bool _isAudioRecorderInitialized = false;
 
   AudioRecorderManager() {
     _audioPlayer = AudioPlayer();
@@ -22,6 +23,7 @@ class AudioRecorderManager {
       _audioPath = '${appDocDir.path}/recorded_audio.mp3';
 
       await _audioRecorder.start(const RecordConfig(), path: _audioPath);
+      _isAudioRecorderInitialized = true;
     }
   }
 
@@ -40,8 +42,12 @@ class AudioRecorderManager {
   // Finds the path to the recording and then plays it
   Future<void> playRecording() async {
     try {
-      Source urlSource = UrlSource(_audioPath);
-      await _audioPlayer.play(urlSource);
+      if (_audioPath.isNotEmpty) {
+        Source urlSource = UrlSource(_audioPath);
+        await _audioPlayer.play(urlSource);
+      } else {
+        print("Error: Audio path is empty.");
+      }
     } catch (e) {
       print("Error with play recording: $e");
     }
@@ -50,7 +56,11 @@ class AudioRecorderManager {
   // This function will handle sending the the audio to bear
   Future<void> sendMessage() async {
     try {
-      File(_audioPath).delete();
+      if (File(_audioPath).existsSync()) {
+        File(_audioPath).delete();
+      } else {
+        print("Error: Audio file doesn't exist.");
+      }
     } catch (e) {
       print('Error sending message: $e');
     }
@@ -59,7 +69,11 @@ class AudioRecorderManager {
   // This resets the audio buttons so that an audio message can be discarded
   Future<void> reset() async {
     try {
-      File(_audioPath).delete();
+      if (File(_audioPath).existsSync()) {
+        File(_audioPath).delete();
+      } else {
+        print("Error: Audio file doesn't exist.");
+      }
     } catch (e) {
       print('Error resetting: $e');
     }
@@ -67,44 +81,10 @@ class AudioRecorderManager {
 
   // This is called when the widget tree is disposed to save memory
   void dispose() {
-    _audioRecorder.dispose();
+    if (_isAudioRecorderInitialized) {
+      print("dispose called");
+      _audioRecorder.dispose();
+    }
     _audioPlayer.dispose();
   }
 }
-
-
-// Future<void> startRecording(AudioPlayer player, AudioRecorder recorder) async {
-//
-//   if (await recorder.hasPermission()) {
-//     Directory appDocDir = await getApplicationDocumentsDirectory();
-//     String destinationPath = '${appDocDir.path}/recorded_audio.mp3';
-//
-//     await recorder.start(const RecordConfig(), path: destinationPath);
-//   }
-// }
-//
-// Future<void> playRecording(String? audioPath, AudioPlayer audioPlayer) async {
-//
-//   try{
-//     Source urlSource =  UrlSource(audioPath!);
-//     await audioPlayer.play(urlSource);
-//   } catch(e) {
-//     print("Error with play recording");
-//   }
-// }
-//
-// Future<void> sendMessage(String? audioPath) async {
-//   try {
-//     File(audioPath!).delete();
-//   } catch (e) {
-//     print('Error sending message: $e');
-//   }
-// }
-//
-// Future<void> reset(String? audioPath) async {
-//   try {
-//     File(audioPath!).delete();
-//   } catch (e) {
-//     print('Error resetting: $e');
-//   }
-// }

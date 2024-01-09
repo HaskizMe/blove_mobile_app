@@ -65,6 +65,8 @@ class _RecordPageState extends State<RecordPage> {
 
   @override
   void dispose() {
+    print("record page dispose");
+    audioManager.stopRecording(); // Ensure recording is stopped before disposing
     audioManager.dispose();
     confettiController.dispose();
     timer?.cancel();
