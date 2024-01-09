@@ -1,3 +1,4 @@
+import 'package:b_love_bear/custom_widgets/custom_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../colors/app_colors.dart';
@@ -10,25 +11,8 @@ void showLoading(BuildContext context) {
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
-      return Center(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
-          child: Container(
-            color: AppColors.heartRed.withOpacity(.6),
-            width: 150,
-            height: 150,
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CupertinoActivityIndicator(color: Colors.white, radius: 20.0,),
-                SizedBox(height: 15,),
-                Text('ATTEMPTING', style: TextStyle(color: Colors.white),),
-                Text('LOGIN', style: TextStyle(color: Colors.white),),
-              ],
-            ),
-          ),
-        ),
+      return const Center(
+        child: CustomLoader(text: 'ATTEMPTING\n      LOGIN',)
       );
     },
   );
